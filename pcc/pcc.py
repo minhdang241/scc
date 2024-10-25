@@ -1,9 +1,10 @@
+#!/usr/bin/env python3
 """
 Compiler driver
 """
-#!/usr/bin/env python3
 from __future__ import annotations
 import argparse
+
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(
       prog="Simple C Compiler Driver",

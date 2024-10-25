@@ -5,7 +5,6 @@ import enum
 from dataclasses import dataclass
 from typing import List
 
-
 class TokenType(enum.StrEnum):
   TK_IDENTIFIER = enum.auto()
   TK_CONSTANT = enum.auto()
