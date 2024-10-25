@@ -18,8 +18,20 @@ repos:
     hooks:
       - id: isort
         args: ["-a", "from __future__ import annotations"]
+        additional_dependencies: ["pylint"]
+
 
   - repo: https://github.com/psf/black
     rev: 23.1a1
     hooks:
       - id: black
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: python
+        types: [python]
+        require_serial: true
+        args: ["--rcfile=pylintrc"]

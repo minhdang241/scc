@@ -1,31 +1,46 @@
+"""Contains the code for lexer"""
+
 from __future__ import annotations
 
+import enum
 from dataclasses import dataclass
-from enum import Enum
 from typing import List
 
 
-class TokenType(Enum):
-    TK_IDENTIFIER = 1
-    TK_CONSTANT = 2
-    TK_KEYWORD = 3
-    TK_OPAREN = 4
-    TK_CPAREN = 5
-    TK_OBRACE = 6
-    TK_CBRACE = 7
+class TokenType(enum.StrEnum):
+    TK_IDENTIFIER = enum.auto()
+    TK_CONSTANT = enum.auto()
+    TK_KEYWORD = enum.auto()
+    TK_OPAREN = enum.auto()
+    TK_CPAREN = enum.auto()
+    TK_OBRACE = enum.auto()
+    TK_CBRACE = enum.auto()
 
 
 @dataclass
 class Token:
-    token_type: TokenType
-    token_value: str
+    type: TokenType
+    value: str
 
 
 class Lexer:
+    """
+    Contains all the logic of the lexer pass.
+    """
+
     def __init__(self):
         pass
 
     def tokenize(self, text: str) -> List[Token]:
+        """
+        Tokenize a text and return a list of tokens.
+
+        Args:
+            text: the input text to tokenize
+        Returns:
+            a list of Tokens
+
+        """
         text = text.trim()
-        while text:
-            regex
+
+        return []
