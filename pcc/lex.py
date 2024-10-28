@@ -4,6 +4,8 @@ from __future__ import annotations
 import enum
 from dataclasses import dataclass
 from typing import List
+import re
+
 
 class TokenType(enum.StrEnum):
   TK_IDENTIFIER = enum.auto()
@@ -13,11 +15,27 @@ class TokenType(enum.StrEnum):
   TK_CPAREN = enum.auto()
   TK_OBRACE = enum.auto()
   TK_CBRACE = enum.auto()
+  TK_SEMICOLON = enum.auto()
+
+
+class TokenPattern(enum.StrEnum):
+  IDENTIFIER = r"^[a-zA-Z_]\w*\b"
+  CONSTANT = r"^[0-9]+\b"
+  INT_KEYWORD = r"^int\b"
+  VOID_KEYWORD = r"^void\b"
+  RETURN_KEYWORD = r"^return\b"
+  OPAREN = r"^\("
+  CPAREN = r"^\)"
+  OBRACE = r"^{"
+  CBRACE = r"^}"
+  SEMICOLON = "^;"
+
 
 @dataclass
 class Token:
-  type: TokenType
   value: str
+  type: TokenType
+
 
 class Lexer:
   """
@@ -35,8 +53,50 @@ class Lexer:
         text: the input text to tokenize
     Returns:
         a list of Tokens
+    Raises:
+        ValueError: if no pattern matches the text
 
     """
-    text = text.strip()
 
-    return []
+    tokens = []
+    while text:
+      text = text.strip()
+      found = False
+      for pattern in TokenPattern:
+        result = re.search(pattern, text)
+        if not result:
+          continue
+        found = True
+        start, end = result.span()
+
+        match pattern:
+          case TokenPattern.IDENTIFIER:
+            token_type = TokenType.TK_IDENTIFIER
+          case TokenPattern.CONSTANT:
+            token_type = TokenType.TK_CONSTANT
+          case TokenPattern.INT_KEYWORD, TokenPattern.VOID_KEYWORD, TokenPattern.RETURN_KEYWORD:
+            token_type = TokenType.TK_KEYWORD
+          case TokenPattern.OPAREN:
+            token_type = TokenType.TK_OPAREN
+          case TokenPattern.CPAREN:
+            token_type = TokenType.TK_CPAREN
+          case TokenPattern.OBRACE:
+            token_type = TokenType.TK_OBRACE
+          case TokenPattern.CBRACE:
+            token_type = TokenType.TK_CBRACE
+          case TokenPattern.SEMICOLON:
+            token_type = TokenType.TK_SEMICOLON
+        token = Token(value=text[start:end], type=token_type)
+        tokens.append(token)
+        text = text[end:]
+        break
+      if not found:
+        raise ValueError(f"There is no pattern matching the text {text}")
+    return tokens
+
+
+if __name__ == "__main__":
+  lexer = Lexer()
+  tokens = lexer.tokenize("int main(void) {};")
+  print(tokens)
+  assert len(tokens) == 8
