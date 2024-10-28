@@ -62,6 +62,11 @@ class Lexer:
     while text:
       text = text.strip()
       found = False
+      while text.startswith("//"):
+        # Ignore comment
+        index = text.find("\n")
+        text = text[index + 1 :].strip()
+
       for pattern in TokenPattern:
         result = re.search(pattern, text)
         if not result:
