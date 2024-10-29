@@ -1,4 +1,3 @@
-import importlib.resources
 from pcc import lex
 import importlib
 from tests import resources
