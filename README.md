@@ -1,34 +1,35 @@
 # What is the SCC?
-Simple C compiler implemented by Python.
+Simple C compiler (SCC) is a simple compiler of C language that is implemented by Python.
 
 
-# What is compiler?
-Compiler is a program that translate a language to another, in this case, convert source code written in C to Assembly.
+# What is a compiler?
+The compiler is a program that translates one language to another, in this case, converts source code written in C to Assembly.
 
+<b>From source code to executable file:</b>
 
-<b>Follow from source code to executable file:</b>
-
-Source code (text) -[Pre-processor]-> Pre-processed source code -[Compiler]-> Assembly code -[Assembler]-> Object file (binary) -[Linker]-> Executable (binary)
-
+```mermaid
+graph LR;
+    source_code--Pre-processor-->preprocessed_source_code--Compiler-->assembly_code--Assembler-->object_file--Linker-->executable_file
+```
 # Design
 ## Compiler passes
-Source Code goes through 4 passes to be converted into assembly file, shown as follow:
-
-program.c -[Lexer]-> list of tokens -[Parser]-> abstract syntax tree (AST) -[Assembly Generation]-> Assembly -[Code Emission]-> program.s (assembly file).
-
+The source code goes through 4 passes to be converted into an assembly file, shown as follows:
+```mermaid
+graph LR;
+text.c--Lexer-->tokens--Parser-->abstract_syntax_tree--Assembly_Generation-->assembly--Code_Emitters-->program.s
+```
 **Description**:
 - Lexer pass: breaks up the source code into a list of tokens.
-- Parser pass: converts a list of tokens in to AST -> easy to traverse and analyze.
-- Assembly Generation pass: converts AST into assembly and organize in a structure required by the compiler.
-- Code Emission pass: writes those assembly strucutre to file.
+- Parser pass: converts a list of tokens into AST -> easy to traverse and analyze.
+- Assembly Generation pass: converts AST into assembly and organizes in a structure required by the compiler.
+- Code Emission pass: writes those assembly structures to file.
 
 
 ## Compiler driver interface:
-Currently support the following flags.
-
---lex
---parse
---codegen
+Currently, support the following flags.
+- `--lex`: Run only the lexer pass.
+- `--parse`: Run the lexer and parser passes.
+- `--codegen`: Run the lexer, parser, and code generation passes.
 
 
 
