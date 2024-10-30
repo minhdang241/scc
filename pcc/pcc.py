@@ -6,19 +6,21 @@ Compiler driver
 from __future__ import annotations
 import argparse
 import lex
+import parse
 
 if __name__ == "__main__":
-  parser = argparse.ArgumentParser(
+  argparser = argparse.ArgumentParser(
     prog="Simple C Compiler Driver",
     description="Compile C file to executable file",
   )
-  parser.add_argument("filename")
-  parser.add_argument("--lex", action="store_true", help="Perform lexical analysis only")
-  parser.add_argument("--parse")
-  parser.add_argument("--codegen")
-  args = parser.parse_args()
+  argparser.add_argument("filename")
+  argparser.add_argument("--lex", action="store_true", help="Perform lexical analysis only")
+  argparser.add_argument("--parse")
+  argparser.add_argument("--codegen")
+  args = argparser.parse_args()
 
   # Pass 1: Lex
+  tokens = []
   if args.lex:
     with open(args.filename, "r") as f:
       text = f.read()
@@ -27,3 +29,7 @@ if __name__ == "__main__":
         tokens = lexer.tokenize(text)
       except ValueError:
         exit(1)
+
+  if args.parse:
+    parser = parse.Parser(tokens)
+    parser.parse_program()

@@ -87,7 +87,7 @@ class Parser:
       self.current_index += 1
 
   def parse_program(self):
-    pass
+    print("Parse the whole program")
 
   def parse_statement(self) -> Statement:
     self._expect("return")
