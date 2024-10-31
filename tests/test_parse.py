@@ -1,4 +1,4 @@
-from pcc import parse, lex
+from pcc import lex, parse
 
 
 class TestParser:
@@ -7,4 +7,5 @@ class TestParser:
     parser = parse.Parser(tokens=tokens)
     statement = parser.parse_statement()
     assert statement != None
+    parse.print_ast(statement)
     assert isinstance(statement, parse.Statement)

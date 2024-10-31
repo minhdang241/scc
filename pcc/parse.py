@@ -109,3 +109,8 @@ class Parser:
 
   def parse_int(self, token: lex.Token) -> Constant:
     return Constant(token.value)
+
+
+def print_ast(ast: AST):
+  if isinstance(ast, ReturnStatement):
+    return "ReturnStatement()"

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Compiler driver
-"""
+"""Contains driver logic"""
 
 from __future__ import annotations
 import argparse

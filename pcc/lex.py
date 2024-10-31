@@ -1,4 +1,4 @@
-"""Contains the code for lexer"""
+"""Contains lexer logic"""
 
 from __future__ import annotations
 import enum
