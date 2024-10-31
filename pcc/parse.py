@@ -5,40 +5,42 @@ Contain parser logic
 from typing import List
 from pcc import lex
 from abc import ABC
+from dataclasses import dataclass
+import pprint
 
 
 class AST(ABC):
   pass
 
 
-class Statement(ABC):
+class Statement(AST):
   pass
 
 
-class Constant(ABC):
-  def __init__(self, value: str):
-    self.value = value
+@dataclass
+class Constant(AST):
+  value: str
 
 
-class Expression(ABC):
-  def __init__(self, constant: Constant):
-    self.value = constant
+@dataclass
+class Expression(AST):
+  value: Constant
 
 
+@dataclass
 class ReturnStatement(Statement):
-  def __init__(self, exp: Expression):
-    self.exp = exp
+  exp: Expression
 
 
+@dataclass
 class Identifier(AST):
-  def __init__(self, value: str):
-    self.value = value
+  value: str
 
 
+@dataclass
 class Function(AST):
-  def __init__(self, name: Identifier, body: Statement):
-    self.name = name
-    self.body = body
+  name: Identifier
+  body: Statement
 
 
 class Program(AST):
@@ -113,4 +115,12 @@ class Parser:
 
 def print_ast(ast: AST):
   if isinstance(ast, ReturnStatement):
-    return "ReturnStatement()"
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(ast)
+
+
+if __name__ == "__main__":
+  tokens = [lex.Token("return", lex.TokenType.TK_KEYWORD), lex.Token("2", lex.TokenType.TK_CONSTANT), lex.Token(";", lex.TokenType.TK_SEMICOLON)]
+  parser = Parser(tokens=tokens)
+  statement = parser.parse_statement()
+  print_ast(statement)
