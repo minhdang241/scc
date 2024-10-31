@@ -13,13 +13,13 @@ if __name__ == "__main__":
   )
   argparser.add_argument("filename")
   argparser.add_argument("--lex", action="store_true", help="Perform lexical analysis only")
-  argparser.add_argument("--parse")
+  argparser.add_argument("--parse", action="store_true", help="Perform lexical and parse pass")
   argparser.add_argument("--codegen")
   args = argparser.parse_args()
 
   # Pass 1: Lex
   tokens = []
-  if args.lex:
+  if args.parse or args.lex:
     with open(args.filename, "r") as f:
       text = f.read()
       lexer = lex.Lexer()

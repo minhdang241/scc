@@ -9,7 +9,7 @@ class TestLexer:
     lexer = lex.Lexer()
     path = importlib.resources.files(resources).joinpath("multi_digit.c")
     tokens = []
-    with open(path) as file:
+    with open(path, "r") as file:
       tokens = lexer.tokenize(file.read())
     assert len(tokens) == 10
 

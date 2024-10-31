@@ -43,9 +43,9 @@ class Function(AST):
   body: Statement
 
 
+@dataclass
 class Program(AST):
-  def __init__(self, function_definition: Function):
-    self.function_definition = function_definition
+  function_definition: Function
 
 
 class Parser:
@@ -88,8 +88,10 @@ class Parser:
     else:
       self.current_index += 1
 
-  def parse_program(self):
+  def parse_program(self) -> Program:
     print("Parse the whole program")
+    function_val = self.parse_function()
+    return Program(function_val)
 
   def parse_statement(self) -> Statement:
     self._expect("return")
@@ -100,14 +102,30 @@ class Parser:
     return ReturnStatement(return_val)
 
   def parse_function(self):
-    pass
+    self._expect("int")
+    self._next_token()
+    identifier_val = self.parse_identifier()
+    self._next_token()
+    self._expect("(")
+    self._next_token()
+    self._expect("void")
+    self._next_token()
+    self._expect(")")
+    self._next_token()
+    self._expect("{")
+    self._next_token()
+    statement_val = self.parse_statement()
+    self._next_token()
+    self._expect("}")
+    return Function(identifier_val, statement_val)
 
   def parse_exp(self) -> Expression:
     token = self.tokens[self.current_index]
     return Expression(self.parse_int(token))
 
-  def parse_identifier(self):
-    pass
+  def parse_identifier(self) -> Identifier:
+    token = self.tokens[self.current_index]
+    return Identifier(token.value)
 
   def parse_int(self, token: lex.Token) -> Constant:
     return Constant(token.value)

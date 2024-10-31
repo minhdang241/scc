@@ -1,11 +1,18 @@
+import importlib.resources
 from pcc import lex, parse
+import importlib
+from tests import resources
 
 
 class TestParser:
   def test_parser_succeed(self):
-    tokens = [lex.Token("return", lex.TokenType.TK_KEYWORD), lex.Token("2", lex.TokenType.TK_CONSTANT), lex.Token(";", lex.TokenType.TK_SEMICOLON)]
+    lexer = lex.Lexer()
+    path = importlib.resources.files(resources).joinpath("return_2.c")
+    with open(path, "r") as file:
+      tokens = lexer.tokenize(file.read())
     parser = parse.Parser(tokens=tokens)
-    statement = parser.parse_statement()
-    assert statement != None
-    parse.print_ast(statement)
-    assert isinstance(statement, parse.Statement)
+    print(tokens)
+    program = parser.parse_program()
+    assert program != None
+    parse.print_ast(program)
+    assert isinstance(program, parse.Program)
