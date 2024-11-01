@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Contains driver logic"""
 
-from __future__ import annotations
 import argparse
 import lex
 import parse

@@ -1,8 +1,7 @@
 """Contains lexer logic"""
 
-from __future__ import annotations
 import enum
-from dataclasses import dataclass
+import dataclasses
 from typing import List
 import re
 
@@ -31,7 +30,7 @@ class TokenPattern(enum.StrEnum):
   SEMICOLON = "^;"
 
 
-@dataclass
+@dataclasses.dataclass
 class Token:
   value: str
   type: TokenType

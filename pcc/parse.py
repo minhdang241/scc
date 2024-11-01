@@ -3,13 +3,13 @@ Contain parser logic
 """
 
 from typing import List
-from pcc import lex
-from abc import ABC
-from dataclasses import dataclass
+import lex
+import abc
+import dataclasses
 import pprint
 
 
-class AST(ABC):
+class AST(abc.ABC):
   pass
 
 
@@ -17,33 +17,33 @@ class Statement(AST):
   pass
 
 
-@dataclass
+@dataclasses.dataclass
 class Constant(AST):
   value: str
 
 
-@dataclass
+@dataclasses.dataclass
 class Expression(AST):
   value: Constant
 
 
-@dataclass
+@dataclasses.dataclass
 class ReturnStatement(Statement):
   exp: Expression
 
 
-@dataclass
+@dataclasses.dataclass
 class Identifier(AST):
   value: str
 
 
-@dataclass
+@dataclasses.dataclass
 class Function(AST):
   name: Identifier
   body: Statement
 
 
-@dataclass
+@dataclasses.dataclass
 class Program(AST):
   function_definition: Function
 
