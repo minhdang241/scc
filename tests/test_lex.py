@@ -1,21 +1,15 @@
 from pcc import lex
-import importlib
-from tests import resources
 import pytest
 
 
 class TestLexer:
-  def test_tokenize_succeed(self):
+  def test_tokenize_succeed(self, multi_digit_file_content):
     lexer = lex.Lexer()
-    path = importlib.resources.files(resources).joinpath("multi_digit.c")
     tokens = []
-    with open(path, "r") as file:
-      tokens = lexer.tokenize(file.read())
+    tokens = lexer.tokenize(multi_digit_file_content)
     assert len(tokens) == 10
 
   @pytest.mark.xfail
-  def test_tokenize_fail(self):
-    path = importlib.resources.files(resources).joinpath("at_sign.c")
+  def test_tokenize_fail(self, at_sign_file_content):
     lexer = lex.Lexer()
-    with open(path) as file:
-      lexer.tokenize(file.read())
+    lexer.tokenize(at_sign_file_content)

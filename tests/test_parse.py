@@ -1,15 +1,10 @@
-import importlib.resources
 from pcc import lex, parse
-import importlib
-from tests import resources
 
 
 class TestParser:
-  def test_parser_succeed(self):
+  def test_parser_succeed(self, multi_digit_file_content: str):
     lexer = lex.Lexer()
-    path = importlib.resources.files(resources).joinpath("return_2.c")
-    with open(path, "r") as file:
-      tokens = lexer.tokenize(file.read())
+    tokens = lexer.tokenize(multi_digit_file_content)
     parser = parse.Parser(tokens=tokens)
     print(tokens)
     program = parser.parse_program()
