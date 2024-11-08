@@ -1,13 +1,10 @@
-from pcc import lex, parse
+from pcc import parse
 
 
 class TestParser:
-  def test_parser_succeed(self, multi_digit_file_content: str):
-    lexer = lex.Lexer()
-    tokens = lexer.tokenize(multi_digit_file_content)
+  def test_parser_succeed(self, tokens):
     parser = parse.Parser(tokens=tokens)
-    print(tokens)
-    program = parser.parse_program()
-    assert program != None
-    parse.print_ast(program)
-    assert isinstance(program, parse.Program)
+    program_ast = parser.parse_program()
+    assert program_ast != None
+    parse.print_ast(program_ast)
+    assert isinstance(program_ast, parse.Program)
