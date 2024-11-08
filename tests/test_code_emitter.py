@@ -9,7 +9,7 @@ class TestCodeEmitter:
     program_ast = parser.parse_program()
     generator = assembly_gen.AssemblyGenerator(program_ast)
     program_aast = generator.parse_program_ast()
-    path = importlib.resources.files(resources).joinpath(f"{program_aast.function_definition.name}.s")
+    path = importlib.resources.files(resources).joinpath(f"{program_aast.function_definition.name}")
     emitter = code_emitter.CodeEmitter(str(path), program_aast)
     emitter.emit()
     with open(path, "r") as file:
