@@ -2,7 +2,7 @@
 """Contains driver logic"""
 
 import argparse
-from pcc import lex, parse, codegen
+from pcc import lex, parse, assembly_gen
 
 if __name__ == "__main__":
   argparser = argparse.ArgumentParser(
@@ -30,5 +30,5 @@ if __name__ == "__main__":
       program_ast = parser.parse_program()
 
       if args.codegen:
-        code_generator = codegen.CodeGenerator(program_ast)
+        code_generator = assembly_gen.AssemblyGenerator(program_ast)
         program = code_generator.parse_program_ast()

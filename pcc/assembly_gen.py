@@ -51,7 +51,7 @@ class Program(AAST):
   function_definition: Function
 
 
-class CodeGenerator:
+class AssemblyGenerator:
   def __init__(self, program: parse.Program):
     self.program = program
 
