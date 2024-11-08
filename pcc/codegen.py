@@ -64,9 +64,6 @@ class CodeGenerator:
     return Function(function_definition.name.value, instructions)
 
   def parse_statement_ast(self, statement: parse.Statement) -> List[Instruction]:
-    print("stm: ", statement)
-    print(type(statement))
-    print(isinstance(statement, parse.ReturnStatement))
     if isinstance(statement, parse.ReturnStatement):
       register = Register()
       imm = Imm(statement.exp.value.value)

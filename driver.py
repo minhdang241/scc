@@ -2,8 +2,7 @@
 """Contains driver logic"""
 
 import argparse
-import lex
-import parse
+from pcc import lex, parse, codegen
 
 if __name__ == "__main__":
   argparser = argparse.ArgumentParser(
@@ -12,13 +11,12 @@ if __name__ == "__main__":
   )
   argparser.add_argument("filename")
   argparser.add_argument("--lex", action="store_true", help="Perform lexical analysis only")
-  argparser.add_argument("--parse", action="store_true", help="Perform lexical and parse pass")
-  argparser.add_argument("--codegen")
+  argparser.add_argument("--parse", action="store_true", help="Perform up to parse pass")
+  argparser.add_argument("--codegen", action="store_true", help="Perform up to codegen pass")
   args = argparser.parse_args()
 
-  # Pass 1: Lex
-  tokens = []
-  if args.parse or args.lex:
+  if args.parse or args.lex or args.codegen:
+    tokens = []
     with open(args.filename, "r") as f:
       text = f.read()
       lexer = lex.Lexer()
@@ -27,6 +25,10 @@ if __name__ == "__main__":
       except ValueError:
         exit(1)
 
-  if args.parse:
-    parser = parse.Parser(tokens)
-    parser.parse_program()
+    if args.parse or args.codegen:
+      parser = parse.Parser(tokens)
+      program_ast = parser.parse_program()
+
+      if args.codegen:
+        code_generator = codegen.CodeGenerator(program_ast)
+        program = code_generator.parse_program_ast()

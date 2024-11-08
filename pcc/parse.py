@@ -3,7 +3,7 @@ Contain parser logic
 """
 
 from typing import List
-import lex
+from pcc import lex
 import abc
 import dataclasses
 import pprint
