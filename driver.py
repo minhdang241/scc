@@ -29,6 +29,7 @@ if __name__ == "__main__":
       if args.codegen:
         code_generator = assembly_gen.AssemblyGenerator(program_ast)
         program_aast = code_generator.parse_program_ast()
-        output_file = os.path.basename(args.filename)[:-2]
+        output_file = os.path.dirname(args.filename) + os.path.basename(args.filename)[:-2]
+        print(output_file)
         code_emitter = code_emitter.CodeEmitter(output_file, program_aast)
         code_emitter.emit()
