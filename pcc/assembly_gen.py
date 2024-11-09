@@ -1,5 +1,5 @@
 """
-Contain code generator logic
+This module provides classes and functions for generating an assembly Abstract Syntax Tree (AST) from a parsed program.
 """
 
 from pcc import parse
@@ -52,6 +52,10 @@ class Program(AAST):
 
 
 class AssemblyGenerator:
+  """
+  A class to generate assembly code from a parsed program AST.
+  """
+
   def __init__(self, program: parse.Program):
     self.program = program
 

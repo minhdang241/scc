@@ -1,5 +1,5 @@
 """
-Contain parser logic
+This module implements a simple recursive descent parser for a subset of a programming language.
 """
 
 from typing import List

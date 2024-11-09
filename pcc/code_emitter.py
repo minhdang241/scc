@@ -1,7 +1,16 @@
+"""
+This module contains the CodeEmitter class which is responsible for emitting
+assembly code from an abstract assembly syntax tree (AAST) to a file.
+"""
+
 from pcc import assembly_gen
 
 
 class CodeEmitter:
+  """
+  A class to emit assembly code from an abstract assembly syntax tree (AAST) to a file.
+  """
+
   def __init__(self, filename: str, program_aast: assembly_gen.Program):
     self.filename = filename
     self.program_aast = program_aast

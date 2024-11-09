@@ -1,4 +1,6 @@
-"""Contains lexer logic"""
+"""
+This module provides a simple lexer for tokenizing a subset of C-like language constructs.
+"""
 
 import enum
 import dataclasses
@@ -38,7 +40,8 @@ class Token:
 
 class Lexer:
   """
-  Contains all the logic of the lexer pass.
+  The a class is to convert a sequence of characters
+  into a sequence of tokens. It contains all the logic for the lexer pass.
   """
 
   def __init__(self):
