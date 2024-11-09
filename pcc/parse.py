@@ -89,7 +89,7 @@ class Parser:
       self.current_index += 1
 
   def parse_program(self) -> Program:
-    print("Parse the whole program")
+    print("Parsing the program")
     function_val = self.parse_function()
     if self.current_index != len(self.tokens) - 1:
       raise ValueError("Syntax error: there are redudant tokens!")

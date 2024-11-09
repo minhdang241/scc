@@ -7,8 +7,8 @@ class CodeEmitter:
     self.program_aast = program_aast
 
   def emit(self):
+    print("Emit code to file")
     with open(self.filename, "w") as file:
-      print("Write assembly to file")
       file.write(CodeEmitter._to_assembly(self.program_aast))
 
   @staticmethod

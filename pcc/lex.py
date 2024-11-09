@@ -56,6 +56,7 @@ class Lexer:
         ValueError: if no pattern matches the text
 
     """
+    print("Tokenizing the text")
 
     tokens = []
     while text:

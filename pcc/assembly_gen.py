@@ -56,6 +56,7 @@ class AssemblyGenerator:
     self.program = program
 
   def parse_program_ast(self) -> Program:
+    print("Generating assembly AST")
     function = self.parse_function_ast(self.program.function_definition)
     return Program(function)
 
